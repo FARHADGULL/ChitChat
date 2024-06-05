@@ -17,6 +17,7 @@ class AppColors {
 
   static const limeGreen = Colors.greenAccent;
   static const green = Colors.green;
+  static const navyBlue = Color(0xFF3D4A7A);
 
   static const red = Color(0xFFFE3A30);
   static final red700 = Colors.red.shade700;
@@ -30,6 +31,7 @@ class AppColors {
   static const grey7 = Color(0xFF6F6F6F);
   static const grey8 = Color(0xFF6B7280);
   static const grey9 = Color(0xff3E4958);
+  static const grey10 = Color(0xffF5F6F6);
 
   static const lightGrey = Color(0xff929AAB);
   static const fadedBlue = Color(0xff5D738A);
