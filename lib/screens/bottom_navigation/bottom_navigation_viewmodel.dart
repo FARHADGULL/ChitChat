@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/calls.dart';
+import 'package:flutter_app/screens/calls/calls_view.dart';
 import 'package:flutter_app/screens/contacts.dart';
+import 'package:flutter_app/screens/contacts/contacts_view.dart';
 import 'package:flutter_app/screens/home/home_view.dart';
 import 'package:flutter_app/screens/settings.dart';
 import 'package:get/get.dart';
@@ -16,11 +18,11 @@ class BottomNavigationViewModel extends GetxController {
   Widget selectView(int index) {
     switch (index) {
       case 0:
-        return const HomeView();
+        return HomeView();
       case 1:
-        return const Calls();
+        return CallsView();
       case 2:
-        return const Contacts();
+        return ContactsView();
       case 3:
         return const Settings();
       default:

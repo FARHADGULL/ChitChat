@@ -27,12 +27,12 @@ class CustomText extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       maxLines: maxLines,
       textAlign: textAlign ?? TextAlign.start,
-      // style: style ??
-      //     ThemeHelper.textTheme.bodyMedium!.copyWith(
-      //       fontSize: size ?? 13,
-      //       color: color ?? AppColors.black,
-      //       fontWeight: weight ?? FontWeight.w600,
-      //     ),
+      style: style ??
+          TextStyle(
+            fontSize: size ?? 16,
+            color: color ?? Colors.black,
+            fontWeight: weight ?? FontWeight.normal,
+          ),
     );
   }
 }

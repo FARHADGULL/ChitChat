@@ -30,55 +30,65 @@ class BottomNavigationView extends StatelessWidget {
   }
 
   Widget bottomNavigationBar(BuildContext context) {
-    return Obx(
-      () => BottomAppBar(
-        elevation: 0,
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(1),
-          child: Row(
-            children: [
-              bottomNavigationItem(
-                context,
-                icon: 'assets/vectors/container_4_x2.svg',
-                selected:
-                    GlobalVariable.selectedIndex.value == 0 ? true : false,
-                onTap: () {
-                  GlobalVariable.selectedIndex.value = 0;
-                },
-                toolTip: 'Message',
-              ),
-              bottomNavigationItem(
-                context,
-                icon: 'assets/vectors/vector_9_x2.svg',
-                selected:
-                    GlobalVariable.selectedIndex.value == 1 ? true : false,
-                onTap: () {
-                  GlobalVariable.selectedIndex.value = 1;
-                },
-                toolTip: 'Calls',
-              ),
-              bottomNavigationItem(
-                context,
-                icon: 'assets/vectors/user.svg',
-                selected:
-                    GlobalVariable.selectedIndex.value == 2 ? true : false,
-                onTap: () {
-                  GlobalVariable.selectedIndex.value = 2;
-                },
-                toolTip: 'Contacts',
-              ),
-              bottomNavigationItem(
-                context,
-                icon: 'assets/vectors/settings.svg',
-                selected:
-                    GlobalVariable.selectedIndex.value == 3 ? true : false,
-                onTap: () {
-                  GlobalVariable.selectedIndex.value = 3;
-                },
-                toolTip: 'Settings',
-              ),
-            ],
+    return Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Color(0xFFE5E5E5),
+            width: 0.7,
+          ),
+        ),
+      ),
+      child: Obx(
+        () => BottomAppBar(
+          elevation: 0,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(1),
+            child: Row(
+              children: [
+                bottomNavigationItem(
+                  context,
+                  icon: 'assets/vectors/container_4_x2.svg',
+                  selected:
+                      GlobalVariable.selectedIndex.value == 0 ? true : false,
+                  onTap: () {
+                    GlobalVariable.selectedIndex.value = 0;
+                  },
+                  toolTip: 'Message',
+                ),
+                bottomNavigationItem(
+                  context,
+                  icon: 'assets/vectors/vector_9_x2.svg',
+                  selected:
+                      GlobalVariable.selectedIndex.value == 1 ? true : false,
+                  onTap: () {
+                    GlobalVariable.selectedIndex.value = 1;
+                  },
+                  toolTip: 'Calls',
+                ),
+                bottomNavigationItem(
+                  context,
+                  icon: 'assets/vectors/user.svg',
+                  selected:
+                      GlobalVariable.selectedIndex.value == 2 ? true : false,
+                  onTap: () {
+                    GlobalVariable.selectedIndex.value = 2;
+                  },
+                  toolTip: 'Contacts',
+                ),
+                bottomNavigationItem(
+                  context,
+                  icon: 'assets/vectors/settings.svg',
+                  selected:
+                      GlobalVariable.selectedIndex.value == 3 ? true : false,
+                  onTap: () {
+                    GlobalVariable.selectedIndex.value = 3;
+                  },
+                  toolTip: 'Settings',
+                ),
+              ],
+            ),
           ),
         ),
       ),

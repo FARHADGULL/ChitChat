@@ -75,7 +75,7 @@ class MessageView extends StatelessWidget {
         child: Obx(() {
           return ListView.builder(
             controller: messageViewModel.scrollController,
-            reverse: true,
+            //reverse: true,
             itemCount: messageViewModel.messages.length,
             itemBuilder: (context, index) {
               final message = messageViewModel.messages[index];
@@ -105,7 +105,7 @@ class MessageView extends StatelessWidget {
                           ),
                   ),
                   child: Text(
-                    message.content,
+                    message.content.toString(),
                     style: TextStyle(
                       color: message.isSentByMe
                           ? AppColors.white
