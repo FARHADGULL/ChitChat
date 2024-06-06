@@ -37,7 +37,7 @@ class AppRoutes {
       ),
       GetPage(
         name: homeView,
-        page: () => const HomeView(),
+        page: () => HomeView(),
       ),
       GetPage(
         name: messageView,
