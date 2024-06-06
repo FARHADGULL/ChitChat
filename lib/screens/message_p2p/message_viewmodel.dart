@@ -7,6 +7,8 @@ class MessageViewModel extends GetxController {
   ScrollController scrollController = ScrollController();
 
   var selectedUser = "".obs;
+  RxInt selectedUserId = 0.obs;
+  // int selectedUserId = 0.obs.value;
 
   var messages = <Message>[].obs;
 
@@ -27,4 +29,9 @@ class MessageViewModel extends GetxController {
       );
     }
   }
+
+  // void addMessage(String message) {
+  //   messages.add(Message(content: message, isSentByMe: false));
+  //   scrollToBottom();
+  // }
 }
