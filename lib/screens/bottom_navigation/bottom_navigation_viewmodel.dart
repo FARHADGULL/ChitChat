@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/calls.dart';
 import 'package:flutter_app/screens/calls/calls_view.dart';
-import 'package:flutter_app/screens/contacts.dart';
 import 'package:flutter_app/screens/contacts/contacts_view.dart';
 import 'package:flutter_app/screens/home/home_view.dart';
 import 'package:flutter_app/screens/settings.dart';
