@@ -22,6 +22,7 @@ class AppColors {
   static const red = Color(0xFFFE3A30);
   static final red700 = Colors.red.shade700;
 
+  static const grey = Color(0x33FFFFFF);
   static const grey1 = Color(0xffEDEDED);
   static const grey2 = Color(0xff929AAB);
   static const grey3 = Color(0xffF9FAFB);
