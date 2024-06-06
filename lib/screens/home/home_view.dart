@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/constants.dart';
+import 'package:flutter_app/screens/contacts/contacts_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +9,10 @@ import '../../helpers/app_routes.dart';
 import '../message_p2p/message_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  HomeView({super.key});
+
+  final MessageViewModel messageViewModel = Get.put(MessageViewModel());
+  final ContactsViewModel contactsViewModel = Get.put(ContactsViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,7 @@ class HomeView extends StatelessWidget {
             height: 50,
             width: 50,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: AppColors.grey,
               borderRadius: BorderRadius.circular(100),
             ),
             child: Center(
@@ -93,20 +97,20 @@ class HomeView extends StatelessWidget {
         height: 90,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: contactsViewModel.contacts.length,
           itemBuilder: (context, index) {
+            final status = contactsViewModel.contacts[index];
             return Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    backgroundImage:
-                        AssetImage("assets/images/ellipse_3071.png"),
+                  CircleAvatar(
+                    backgroundImage: AssetImage(status.imageUrl),
                     radius: 30,
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "Name ",
+                    status.name,
                     style: GoogleFonts.getFont(
                       'Poppins',
                       fontWeight: FontWeight.w400,
@@ -125,7 +129,6 @@ class HomeView extends StatelessWidget {
   }
 
   Widget buildMessages() {
-    final MessageViewModel messageViewModel = Get.put(MessageViewModel());
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
@@ -152,16 +155,16 @@ class HomeView extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: contactsViewModel.contacts.length,
                 itemBuilder: (context, index) {
+                  final contact = contactsViewModel.contacts[index];
                   return ListTile(
-                    leading: const CircleAvatar(
+                    leading: CircleAvatar(
                       maxRadius: 25,
-                      backgroundImage:
-                          AssetImage("assets/images/ellipse_304.png"),
+                      backgroundImage: AssetImage(contact.imageUrl),
                     ),
                     title: Text(
-                      "User $index",
+                      contact.name,
                       style: GoogleFonts.getFont(
                         'Poppins',
                         fontWeight: FontWeight.w500,
@@ -171,7 +174,7 @@ class HomeView extends StatelessWidget {
                       ),
                     ),
                     subtitle: Text(
-                      "Last message...",
+                      contact.message,
                       style: GoogleFonts.getFont(
                         'Poppins',
                         fontWeight: FontWeight.w400,
