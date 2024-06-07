@@ -90,8 +90,7 @@ class CustomTextField1 extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: title,
-                    // style: ThemeHelper.textTheme.bodyMedium?.copyWith(
-                    //     color: AppColors.black3, fontWeight: FontWeight.w600),
+                    
                     children: [
                       (asterisk)
                           ? const TextSpan(
