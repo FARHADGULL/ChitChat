@@ -52,7 +52,7 @@ class Splash extends StatelessWidget {
                               width: width * 0.9,
                               height: height * 0.4,
                               padding: EdgeInsets.fromLTRB(
-                                  width * 0.08, height * 0.1, 0, 0),
+                                  width * 0.08, height * 0.07, 0, 0),
                               child: Text(
                                 'Chitchat',
                                 style: GoogleFonts.getFont(
