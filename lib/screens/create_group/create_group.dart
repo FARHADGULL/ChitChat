@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/create_group/create_group_viewmodel.dart';
 import 'package:flutter_app/screens/home/home_viewmodel.dart';
-import 'package:flutter_app/screens/message_p2p/message_viewmodel.dart';
 import 'package:flutter_app/widgets/custom_textfield.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
