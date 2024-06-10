@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/app_routes.dart';
+import 'package:flutter_app/screens/bottom_navigation/bottom_navigation_view.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
