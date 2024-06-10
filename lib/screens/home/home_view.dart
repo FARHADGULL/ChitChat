@@ -87,7 +87,7 @@ class HomeView extends StatelessWidget {
             onTap: () {
               Get.toNamed(AppRoutes.profileView);
             },
-           child: CircleAvatar(
+           child: const CircleAvatar(
               backgroundImage: AssetImage(
                 "assets/images/ellipse_3071.png",
               ),
@@ -178,7 +178,7 @@ class HomeView extends StatelessWidget {
                     backgroundImage: AssetImage("assets/images/ellipse_3071.png"),
                   ),
                   title: Text(
-                    group.name ?? "Group $index",
+                    group.name,
                     style: GoogleFonts.getFont(
                       'Poppins',
                       fontWeight: FontWeight.w500,
@@ -287,89 +287,5 @@ class HomeView extends StatelessWidget {
     ),
   );
 }
-
-// Widget buildGroups() {
-//     return Expanded(
-//       child: Container(
-//         decoration: const BoxDecoration(
-//           color: AppColors.white,
-//           borderRadius: BorderRadius.only(
-//             topLeft: Radius.circular(40),
-//             topRight: Radius.circular(40),
-//           ),
-//         ),
-//         child: Column(
-//           children: [
-//             Center(
-//               child: Padding(
-//                 padding: const EdgeInsets.only(top: 10.0),
-//                 child: Container(
-//                   height: 5,
-//                   width: 40,
-//                   decoration: BoxDecoration(
-//                     color: Colors.grey[300],
-//                     borderRadius: BorderRadius.circular(100),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             Text(
-//               "Groups",
-//               style: GoogleFonts.getFont(
-//                 'Poppins',
-//                 fontWeight: FontWeight.w500,
-//                 fontSize: 18,
-//                 height: 1,
-//                 color: const Color(0xFF3D4A7A),
-//               ),
-//             ),
-//             Expanded(
-//               child: Obx(
-//                 () {
-//                   return homeViewModel.groups.isEmpty
-//                       ? const Center(child: CircularProgressIndicator())
-//                       : ListView.builder(
-//                           itemCount: homeViewModel.groups.length,
-//                           itemBuilder: (context, index) {
-//                             final group = homeViewModel.groups[index];
-//                             return ListTile(
-//                               leading: const CircleAvatar(
-//                                 maxRadius: 25,
-//                                 backgroundImage: AssetImage("assets/images/rectangle_1151.png"),
-//                               ),
-//                               title: Text(
-//                                 group.name ?? "Group $index",
-//                                 style: GoogleFonts.getFont(
-//                                   'Poppins',
-//                                   fontWeight: FontWeight.w500,
-//                                   fontSize: 16,
-//                                   height: 1,
-//                                   color: const Color(0xFF3D4A7A),
-//                                 ),
-//                               ),
-//                               subtitle: Text(
-//                                 '${group.membersCount} members',
-//                                 style: GoogleFonts.getFont(
-//                                   'Poppins',
-//                                   fontWeight: FontWeight.w400,
-//                                   fontSize: 12,
-//                                   height: 1,
-//                                   color: const Color(0x80797C7B),
-//                                 ),
-//                               ),
-//                               onTap: () {
-//                                // Get.to(GroupMessageView(), arguments: {'groupId': group.id, 'groupName': group.name});
-//                               },
-//                             );
-//                           },
-//                         );
-//                 },
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
 
 }
