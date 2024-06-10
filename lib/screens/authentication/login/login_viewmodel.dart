@@ -6,7 +6,6 @@ import 'package:flutter_app/helpers/app_routes.dart';
 import 'package:flutter_app/helpers/common_function.dart';
 import 'package:flutter_app/helpers/global_variables.dart';
 import 'package:flutter_app/helpers/urls.dart';
-import 'package:flutter_app/screens/home/home_viewmodel.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
