@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import '../../../helpers/api_base_helper.dart';
+import '../../../helpers/app_routes.dart';
+import '../../../helpers/common_function.dart';
+import '../../../helpers/global_variables.dart';
+import '../../../helpers/urls.dart';
+
 class SignUpViewModel extends GetxController {
   GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
@@ -67,6 +73,46 @@ class SignUpViewModel extends GetxController {
     //GlobalVariable.showLoader.value = false;
 
     super.onClose();
+  }
+
+  Future<void> signUp() async {
+    print('signUp method called');
+    if (signUpFormKey.currentState?.validate() ?? false) {
+      
+        Map<String, String> param = {
+          "username": nameController.text,
+          "email": emailController.text,
+          
+          "password": passwordController.text,
+        };
+        GlobalVariable.showLoader.value = true;
+        await ApiBaseHelper()
+            .postMethod(url: Urls.register, body: param)
+            .then((response) async{
+              //print('responseee: ${response.body}');
+          if (response['status'] == 201) {
+            GlobalVariable.showLoader.value = false;
+            Get.toNamed(AppRoutes.loginView);
+          } else {
+            
+            CommonFunction.showSnackBar(
+              title: 'Error',
+              message: response['error'],
+            );
+            GlobalVariable.showLoader.value = false;
+          }
+        }).catchError((e) {
+          CommonFunction.showSnackBar(
+            title: 'Error',
+            message: e.toString(),
+          );
+
+          GlobalVariable.showLoader.value = false;
+        });
+      
+    } else {
+      print('Form is invalid');
+    }
   }
 
   // List<http.MultipartFile> fileList = [];
