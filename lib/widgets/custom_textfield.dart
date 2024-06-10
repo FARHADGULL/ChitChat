@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../helpers/constants.dart';
 
@@ -66,7 +67,7 @@ class CustomTextField1 extends StatelessWidget {
     this.minLines,
     this.showCursor,
     this.suffixIcon,
-    this.fillColor = AppColors.grey3,
+    this.fillColor = AppColors.white,
     this.errorText,
     this.readOnly = false,
     this.textStyle,
@@ -90,7 +91,15 @@ class CustomTextField1 extends StatelessWidget {
                 child: RichText(
                   text: TextSpan(
                     text: title,
-                    
+                    style: GoogleFonts.getFont(
+          'Poppins',
+          fontWeight: FontWeight.w500,
+          fontSize: 14,
+          height: 1,
+          letterSpacing: 0.1,
+          color: const Color(0xFF3D4A7A),
+          decoration: TextDecoration.none,
+        ),
                     children: [
                       (asterisk)
                           ? const TextSpan(
