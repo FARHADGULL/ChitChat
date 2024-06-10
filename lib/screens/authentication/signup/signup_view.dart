@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../helpers/app_routes.dart';
 import '../../../helpers/constants.dart';
 import '../../../helpers/validator.dart';
 import '../../../widgets/custom_button.dart';
