@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/helpers/common_function.dart';
 import 'package:flutter_app/helpers/constants.dart';
+import 'package:flutter_app/helpers/global_variables.dart';
 import 'package:flutter_app/screens/contacts/contacts_viewmodel.dart';
+import 'package:flutter_app/screens/home/home_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +14,7 @@ import '../message_p2p/message_viewmodel.dart';
 class HomeView extends StatelessWidget {
   HomeView({super.key});
 
+  final HomeViewModel homeViewModel = Get.put(HomeViewModel());
   final MessageViewModel messageViewModel = Get.put(MessageViewModel());
   final ContactsViewModel contactsViewModel = Get.put(ContactsViewModel());
 
@@ -69,8 +73,8 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            'Home',
+          Obx(()=> Text(
+            GlobalVariable.loggoedInUserName.value,
             style: GoogleFonts.getFont(
               'Poppins',
               fontWeight: FontWeight.w500,
@@ -78,13 +82,18 @@ class HomeView extends StatelessWidget {
               height: 1,
               color: const Color(0xFFFFFFFF),
             ),
-          ),
-          const CircleAvatar(
-            backgroundImage: AssetImage(
-              "assets/images/ellipse_3071.png",
+          ),),
+         GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRoutes.profileView);
+            },
+           child: CircleAvatar(
+              backgroundImage: AssetImage(
+                "assets/images/ellipse_3071.png",
+              ),
+              maxRadius: 25,
             ),
-            maxRadius: 25,
-          ),
+         ),
         ],
       ),
     );
@@ -129,81 +138,238 @@ class HomeView extends StatelessWidget {
   }
 
   Widget buildMessages() {
-    return Expanded(
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40),
-            topRight: Radius.circular(40),
-          ),
+  return Expanded(
+    child: Container(
+      decoration: const BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40),
+          topRight: Radius.circular(40),
         ),
-        child: Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Container(
-                  height: 5,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(100),
-                  ),
+      ),
+      child: Column(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                height: 5,
+                width: 40,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(100),
                 ),
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: contactsViewModel.contacts.length,
-                itemBuilder: (context, index) {
-                  final contact = contactsViewModel.contacts[index];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      maxRadius: 25,
-                      backgroundImage: AssetImage(contact.imageUrl),
+          ),
+          //build add group chat
+          
+          Expanded(
+            child: Obx(()=> homeViewModel.groups.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  :  ListView.builder(
+              itemCount: homeViewModel.groups.length,
+              itemBuilder: (context, index) {
+                final group = homeViewModel.groups[index];
+                print("group id: ${group.id}");
+                return ListTile(
+                  leading: const CircleAvatar(
+                    maxRadius: 25,
+                    backgroundImage: AssetImage("assets/images/ellipse_3071.png"),
+                  ),
+                  title: Text(
+                    group.name ?? "Group $index",
+                    style: GoogleFonts.getFont(
+                      'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      height: 1,
+                      color: const Color(0xFF3D4A7A),
                     ),
-                    title: Text(
-                      contact.name,
-                      style: GoogleFonts.getFont(
-                        'Poppins',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        height: 1,
-                        color: const Color(0xFF000E08),
-                      ),
+                  ),
+                  subtitle: Text(
+                    group.id.toString(),
+                    style: GoogleFonts.getFont(
+                      'Poppins',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      height: 1,
+                      color: const Color(0x80797C7B),
                     ),
-                    subtitle: Text(
-                      contact.message,
-                      style: GoogleFonts.getFont(
-                        'Poppins',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        height: 1,
-                        color: const Color(0x80797C7B),
-                      ),
-                    ),
-                    trailing: Text(
-                      "12:00",
-                      style: GoogleFonts.getFont(
-                        'Poppins',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        height: 1,
-                        color: const Color(0x80797C7B),
-                      ),
-                    ),
-                    onTap: () {
-                      messageViewModel.selectedUser.value = "User $index";
-                      Get.toNamed(AppRoutes.messageView);
-                    },
-                  );
-                },
-              ),
+                  ),
+                  // trailing: Text(
+                  //   CommonFunction.formatDateTime(user.createdAt!),
+                  //   style: GoogleFonts.getFont(
+                  //     'Poppins',
+                  //     fontWeight: FontWeight.w400,
+                  //     fontSize: 12,
+                  //     height: 1,
+                  //     color: const Color(0x80797C7B),
+                  //   ),
+                  // ),
+                  onTap: () {
+                    messageViewModel.selectedGroupId.value = group.id;
+                    print("selected group id: ${messageViewModel.selectedGroupId.value}");
+                    messageViewModel.selectedGroupName.value = group.name;
+                    print("group id: ${group.id}");
+                    messageViewModel.fetchGroupMessages(group.id);
+                    
+                    Get.toNamed(AppRoutes.groupChatView);
+                  },
+                );
+              },
+            ),),
+          ),
+          Expanded(
+            child: Obx(
+              () {
+                // Filter the users to exclude the logged-in user
+                final filteredUsers = homeViewModel.users
+                    .where((user) => user.id != GlobalVariable.userId.value)
+                    .toList();
+
+                return filteredUsers.isEmpty
+                    ? const Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        itemCount: filteredUsers.length,
+                        itemBuilder: (context, index) {
+                          final user = filteredUsers[index];
+                          print("Filtered users: ${filteredUsers.length}");
+                          return ListTile(
+                            leading: const CircleAvatar(
+                              maxRadius: 25,
+                              backgroundImage: AssetImage("assets/images/rectangle_1151.png"),
+                            ),
+                            title: Text(
+                              user.username ?? "User $index",
+                              style: GoogleFonts.getFont(
+                                'Poppins',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                height: 1,
+                                color: const Color(0xFF3D4A7A),
+                              ),
+                            ),
+                            subtitle: Text(
+                              user.id.toString(),
+                              style: GoogleFonts.getFont(
+                                'Poppins',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                height: 1,
+                                color: const Color(0x80797C7B),
+                              ),
+                            ),
+                            trailing: Text(
+                              CommonFunction.formatDateTime(user.createdAt!),
+                              style: GoogleFonts.getFont(
+                                'Poppins',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                height: 1,
+                                color: const Color(0x80797C7B),
+                              ),
+                            ),
+                            onTap: () {
+                              messageViewModel.selectedUserName.value = user.username ?? "User $index";
+                              messageViewModel.selectedUserId.value = user.id ?? 0;
+                              messageViewModel.fetchMessages(GlobalVariable.userId.value, user.id ?? 0);
+                              Get.toNamed(AppRoutes.messageView);
+                            },
+                          );
+                        },
+                      );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
+// Widget buildGroups() {
+//     return Expanded(
+//       child: Container(
+//         decoration: const BoxDecoration(
+//           color: AppColors.white,
+//           borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(40),
+//             topRight: Radius.circular(40),
+//           ),
+//         ),
+//         child: Column(
+//           children: [
+//             Center(
+//               child: Padding(
+//                 padding: const EdgeInsets.only(top: 10.0),
+//                 child: Container(
+//                   height: 5,
+//                   width: 40,
+//                   decoration: BoxDecoration(
+//                     color: Colors.grey[300],
+//                     borderRadius: BorderRadius.circular(100),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Text(
+//               "Groups",
+//               style: GoogleFonts.getFont(
+//                 'Poppins',
+//                 fontWeight: FontWeight.w500,
+//                 fontSize: 18,
+//                 height: 1,
+//                 color: const Color(0xFF3D4A7A),
+//               ),
+//             ),
+//             Expanded(
+//               child: Obx(
+//                 () {
+//                   return homeViewModel.groups.isEmpty
+//                       ? const Center(child: CircularProgressIndicator())
+//                       : ListView.builder(
+//                           itemCount: homeViewModel.groups.length,
+//                           itemBuilder: (context, index) {
+//                             final group = homeViewModel.groups[index];
+//                             return ListTile(
+//                               leading: const CircleAvatar(
+//                                 maxRadius: 25,
+//                                 backgroundImage: AssetImage("assets/images/rectangle_1151.png"),
+//                               ),
+//                               title: Text(
+//                                 group.name ?? "Group $index",
+//                                 style: GoogleFonts.getFont(
+//                                   'Poppins',
+//                                   fontWeight: FontWeight.w500,
+//                                   fontSize: 16,
+//                                   height: 1,
+//                                   color: const Color(0xFF3D4A7A),
+//                                 ),
+//                               ),
+//                               subtitle: Text(
+//                                 '${group.membersCount} members',
+//                                 style: GoogleFonts.getFont(
+//                                   'Poppins',
+//                                   fontWeight: FontWeight.w400,
+//                                   fontSize: 12,
+//                                   height: 1,
+//                                   color: const Color(0x80797C7B),
+//                                 ),
+//                               ),
+//                               onTap: () {
+//                                // Get.to(GroupMessageView(), arguments: {'groupId': group.id, 'groupName': group.name});
+//                               },
+//                             );
+//                           },
+//                         );
+//                 },
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+
 }
