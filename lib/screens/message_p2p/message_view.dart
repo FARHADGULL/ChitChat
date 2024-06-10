@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/helpers/common_function.dart';
+import 'package:flutter_app/helpers/global_variables.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,13 +32,13 @@ class MessageView extends StatelessWidget {
     return CustomAppBar(
       containsLeading: true,
       title: Text(
-        messageViewModel.selectedUser.value.toString(),
+        messageViewModel.selectedUserName.value.toString(),
         style: GoogleFonts.getFont(
           'Poppins',
           fontWeight: FontWeight.w500,
           fontSize: 16,
           height: 1,
-          color: const Color(0xFF000E08),
+          color: Color.fromARGB(255, 1, 2, 2),
         ),
       ).data,
       actions: [
@@ -79,40 +81,81 @@ class MessageView extends StatelessWidget {
             itemCount: messageViewModel.messages.length,
             itemBuilder: (context, index) {
               final message = messageViewModel.messages[index];
-              return Align(
-                alignment: message.isSentByMe
-                    ? Alignment.centerRight
-                    : Alignment.centerLeft,
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: message.isSentByMe
-                        ? AppColors.navyBlue
-                        : Colors.grey[300],
-                    borderRadius: message.isSentByMe
-                        ? const BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            bottomRight: Radius.circular(15),
-                            bottomLeft: Radius.circular(15),
-                          )
-                        : const BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20),
+              return Column(
+                children: [
+                  //show name of the sender 
+                  if (message.isSentByMe)
+                  Container() else
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0, top: 10, bottom: 5),
+                        child: Text(
+                           messageViewModel.selectedUserName.value.toString(),
+                          style: GoogleFonts.getFont(
+                                  'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  height: 1,
+                                  color: Color.fromARGB(255, 1, 2, 2),
+                                ),
+                        ),
+                      ),
+                    )  ,
+                  Align(
+                    alignment: message.isSentByMe
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Container(
+                      margin:
+                          const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                      padding:
+                          const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: message.isSentByMe
+                            ? AppColors.navyBlue
+                            : Colors.grey[300],
+                        borderRadius: message.isSentByMe
+                            ? const BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                bottomRight: Radius.circular(15),
+                                bottomLeft: Radius.circular(15),
+                              )
+                            : const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        // crossAxisAlignment: message.isSentByMe
+                        //     ? CrossAxisAlignment.end
+                        //     : CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            message.content.toString(),
+                            style: TextStyle(
+                              color: message.isSentByMe
+                                  ? AppColors.white
+                                  : AppColors.black,
+                            ),
                           ),
-                  ),
-                  child: Text(
-                    message.content.toString(),
-                    style: TextStyle(
-                      color: message.isSentByMe
-                          ? AppColors.white
-                          : AppColors.black,
+                          const SizedBox(height: 5),
+                          Text(
+                            CommonFunction.formatDateTime(DateTime.now().toString()),
+                            style: TextStyle(
+                              color: message.isSentByMe
+                                  ? AppColors.white
+                                  : AppColors.black,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               );
             },
           );
@@ -280,12 +323,13 @@ class MessageView extends StatelessWidget {
                         fontSize: 16,
                       ),
                       onSubmitted: (value) {
-                        messageViewModel.sendMessage(value, true);
+                        messageViewModel.sendMessage(value, true, userId: GlobalVariable.userId.value, targetUserId:  messageViewModel.selectedUserId.value);
                       }),
                 ),
               ),
               GestureDetector(
                 onTap: () {
+                  
                   // messageViewModel.sendMessage(
                   //   messageViewModel.messageController.text,
                   //   true,
