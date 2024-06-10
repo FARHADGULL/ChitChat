@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/api_base_helper.dart';
-import 'package:flutter_app/helpers/app_routes.dart';
+import 'package:flutter_app/helpers/auth_session_handler.dart';
 import 'package:flutter_app/helpers/common_function.dart';
 import 'package:flutter_app/helpers/global_variables.dart';
 import 'package:flutter_app/helpers/urls.dart';
@@ -14,12 +14,7 @@ class LoginViewModel extends GetxController {
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
 
-  //HomeViewModel homeViewModel = Get.put( HomeViewModel());
-
-  // var email = ''.obs;
-  // var password = ''.obs;
-  // var emailError = ''.obs;
-  // var passwordError = ''.obs;
+  final SessionController sessionController = Get.find();
 
   @override
   void onReady() async {
@@ -29,21 +24,20 @@ class LoginViewModel extends GetxController {
 
   Map<String, dynamic> _parsedJson = {};
   Future<void> login() async {
-    print("login method called");
+    CommonFunction.debugPrint("login method called");
     if (signInFormKey.currentState?.validate() ?? false) {
       Map<String, dynamic> param = {
         'email': emailController.text,
         'password': passwordController.text,
       };
+
       GlobalVariable.showLoader.value = true;
 
       ApiBaseHelper()
           .postMethod(url: Urls.login, body: param)
           .then((response) async{
-            //print('responseee: ${response.body}');
             _parsedJson = response;
             if (response['status'] == 200) {
-              GetStorage().write('token', _parsedJson['token']);
               GlobalVariable.token.value = _parsedJson['token'];
 
               // Extract the user ID of the logged-in user
@@ -52,14 +46,14 @@ class LoginViewModel extends GetxController {
 
               GlobalVariable.userId.value = loggedInUser['id'];
               GlobalVariable.loggoedInUserName.value = loggedInUser['username'];
-              
-              Get.offAllNamed(AppRoutes.bottomNavigationView);
+              sessionController.login(_parsedJson['token']);
+              //Get.offAllNamed(AppRoutes.bottomNavigationView);
             } else {
               CommonFunction.showSnackBar(
                 title: 'Error',
                 message: response['error'],
               );
-              print('Error: ${response['error']}');
+              CommonFunction.debugPrint('Error: ${response['error']}');
 
               GlobalVariable.showLoader.value = false;
             }
@@ -73,7 +67,7 @@ class LoginViewModel extends GetxController {
             GlobalVariable.showLoader.value = false;
           });
     } else {
-      print('Form is invalid');
+      CommonFunction.debugPrint('Form is invalid');
     }
   }
 

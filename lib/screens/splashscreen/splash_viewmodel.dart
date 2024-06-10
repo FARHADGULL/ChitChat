@@ -9,16 +9,12 @@ class SplashViewModel extends GetxController {
     getStorage = GetStorage();
     Future.delayed(const Duration(seconds: 3), () {
       navigateToNextScreen();
-      // if (getStorage.read('isLogin') == true) {
-      //   Get.offAllNamed('/home');
-      // } else {
-      //   navigateToNextScreen();
-      // }
+      
     });
     super.onReady();
   }
 
   navigateToNextScreen() {
-    Get.offAllNamed(AppRoutes.splash1);
+    Get.offAllNamed(AppRoutes.rootRoute);
   }
 }

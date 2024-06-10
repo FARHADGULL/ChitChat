@@ -1,3 +1,4 @@
+import 'package:flutter_app/main.dart';
 import 'package:flutter_app/screens/bottom_navigation/bottom_navigation_view.dart';
 import 'package:flutter_app/screens/authentication/login/login_view.dart';
 import 'package:flutter_app/screens/create_group/create_group.dart';
@@ -13,6 +14,7 @@ import '../screens/authentication/signup/signup_view.dart';
 
 class AppRoutes {
   static const initRoute = "/";
+  static const rootRoute = "/root";
   static const splash1 = "/signIn";
   static const loginView = "/loginView";
   static const signUp = "/signUp";
@@ -28,6 +30,10 @@ class AppRoutes {
       GetPage(
         name: initRoute,
         page: () => Splash(),
+      ),
+      GetPage(
+        name: rootRoute,
+        page: () => const Root(),
       ),
       GetPage(
         name: splash1,
