@@ -174,7 +174,7 @@ class CallsView extends StatelessWidget {
                         //   Get.toNamed(AppRoutes.messageView);
                         // }
 
-                        messageViewModel.selectedUser.value = contact.name;
+                        messageViewModel.selectedUserName.value = contact.name;
                         messageViewModel.messages.clear();
                         messageViewModel.messages.add(Message(
                             content: contact.message, isSentByMe: false));

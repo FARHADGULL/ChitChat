@@ -3,6 +3,7 @@ import 'package:flutter_app/screens/calls/calls_view.dart';
 import 'package:flutter_app/screens/contacts/contacts_view.dart';
 import 'package:flutter_app/screens/home/home_view.dart';
 import 'package:flutter_app/screens/settings.dart';
+import 'package:flutter_app/screens/settings/settings_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -22,7 +23,7 @@ class BottomNavigationViewModel extends GetxController {
       case 2:
         return ContactsView();
       case 3:
-        return const Settings();
+        return  SettingsView();
       default:
         return Container(
           height: 300.0,
