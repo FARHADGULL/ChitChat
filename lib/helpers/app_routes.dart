@@ -1,8 +1,11 @@
 import 'package:flutter_app/screens/bottom_navigation/bottom_navigation_view.dart';
 import 'package:flutter_app/screens/authentication/login/login_view.dart';
+import 'package:flutter_app/screens/create_group/create_group.dart';
+import 'package:flutter_app/screens/group_chat/group_chat_view.dart';
 import 'package:flutter_app/screens/message_p2p/message_view.dart';
 import 'package:flutter_app/screens/splashscreen/splash_1.dart';
 import 'package:flutter_app/screens/splashscreen/splash.dart';
+import 'package:flutter_app/screens/user_profile.dart';
 import 'package:get/get.dart';
 
 import '../screens/home/home_view.dart';
@@ -16,6 +19,9 @@ class AppRoutes {
   static const homeView = "/home";
   static const messageView = "/message";
   static const bottomNavigationView = "/bottomNavigationView";
+  static const createGroup = "/createGroup";
+  static const groupChatView = "/groupChatView";
+  static const profileView = "/profileView";
 
   List<GetPage> getRoutes() {
     return [
@@ -46,6 +52,18 @@ class AppRoutes {
       GetPage(
         name: bottomNavigationView,
         page: () => BottomNavigationView(),
+      ),
+      GetPage(
+        name: createGroup,
+        page: () => CreateGroup(),
+      ),
+      GetPage(
+        name: groupChatView,
+        page: () => GroupChatView(),
+      ),
+      GetPage(
+        name: profileView,
+        page: () => UserProfile(),
       ),
     ];
   }

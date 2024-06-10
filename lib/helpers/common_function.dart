@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/constants.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_workers/utils/debouncer.dart';
+import 'package:intl/intl.dart';
 
 class CommonFunction {
   // static logout() {
@@ -15,35 +16,19 @@ class CommonFunction {
   static final Debouncer debouncer =
       Debouncer(delay: const Duration(milliseconds: 800));
 
-  // static DateTime convertStringToDate(String stringDate) {
-  //   return DateFormat("yyyy-MM-dd hh:mm:ss").parse(stringDate);
-  // }
-  //
-  // static String convertTimeStampToTime(String stringDate) {
-  //   DateTime date = DateTime.fromMillisecondsSinceEpoch(int.parse(stringDate));
-  //   return DateFormat("yyyy-MM-dd hh:mm a").format(date);
-  // }
-  //
-  // static String formatDateTime(String dateTime) {
-  //   DateTime date = DateFormat("yyyy-MM-ddThh:mm:ss.000000Z").parse(dateTime);
-  //   return DateFormat('yyyy-MM-dd hh:mm a').format(date);
-  // }
+     static String formatDateTime(String dateTimeString) {
+  // Parse the input string into a DateTime object
+  DateTime dateTime = DateTime.parse(dateTimeString);
 
-  // static String formattedDataTime(String customFormat, DateTime timestamp) {
-  //   var date =
-  //       DateTime.fromMicrosecondsSinceEpoch(timestamp.microsecondsSinceEpoch);
-  //
-  //   return DateFormat(customFormat).format(date);
-  // }
-  //
-  // static String convertDateFormat(String stringDate,
-  //     {format = 'dd MMM, yyyy'}) {
-  //   DateTime inputDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-  //       .parseUtc(stringDate)
-  //       .toLocal();
-  //   String outputDate = DateFormat(format).format(inputDate);
-  //   return outputDate;
-  // }
+  // Create a DateFormat object with your desired format
+  DateFormat formatter = DateFormat('HH:mm:ss');
+
+  // Format the DateTime object using the formatter
+  String formattedDateTime = formatter.format(dateTime);
+
+  return formattedDateTime;
+}
+
   //
   static void closeKeyboard() {
     FocusScope.of(Get.context!).requestFocus(FocusNode());

@@ -1,5 +1,5 @@
 class Urls {
-  static String baseUrl = "http://localhost:3000";
+  static String baseUrl = "http://192.168.18.150:4000";
 
   //Auth
   static String login = "/auth/login";
