@@ -29,7 +29,7 @@ class Splash1 extends StatelessWidget {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 70.0, left: 20, right: 20),
+                          const EdgeInsets.only(top: 100.0, left: 20, right: 20, bottom: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -59,18 +59,19 @@ class Splash1 extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Our chat app is the perfect way to stay connected with friends and family.',
-                            style: GoogleFonts.getFont(
-                              'Poppins',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              height: 1.6,
-                              color: const Color(0x80FFFFFF),
+                          Padding(
+                            padding: const EdgeInsets.only(top:30, bottom: 180),
+                            child: Text(
+                              'Our chat app is the perfect way to stay connected with friends and family.',
+                              style: GoogleFonts.getFont(
+                                'Poppins',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                height: 1.6,
+                                color: const Color(0x80FFFFFF),
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 100),
                           CustomTextBtn(
                             onPressed: () {
                               Get.toNamed(AppRoutes.signUp);
@@ -81,8 +82,9 @@ class Splash1 extends StatelessWidget {
                             radius: 16,
                             height: 46,
                           ),
-                          const SizedBox(height: 70),
+                          //const SizedBox(height: 70),
                           Center(
+                            heightFactor: 15,
                             child: RichText(
                               text: TextSpan(
                                 style: GoogleFonts.getFont(
