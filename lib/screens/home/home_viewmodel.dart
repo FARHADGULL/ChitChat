@@ -1,6 +1,7 @@
 import 'package:flutter_app/helpers/common_function.dart';
 import 'package:flutter_app/screens/home/home_model.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import '../create_group/createGroup_model.dart';
@@ -9,6 +10,10 @@ import '../create_group/createGroup_model.dart';
 class HomeViewModel extends GetxController {
   RxList<Users> users = <Users>[].obs;
   RxList<Group> groups = <Group>[].obs;
+  //read userId from storage
+  final int userId = GetStorage().read('userId');
+
+  RxString onlineStatus = 'offline'.obs;
 
 
   IO.Socket? socket;
@@ -20,7 +25,7 @@ class HomeViewModel extends GetxController {
   } 
 
   void connect() {
-    socket = IO.io('http://192.168.18.150:4000', <String, dynamic>{
+    socket = IO.io('http://192.168.18.47:4000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -29,9 +34,20 @@ class HomeViewModel extends GetxController {
 
     socket!.onConnect((_) {
       CommonFunction.debugPrint('Connection established in socket.onConnect');
+      //CommonFunction.debugPrint('Token: ${GlobalVariable.token.value}');
+      CommonFunction.debugPrint('User ID: ${userId}');
       socket!.emit('chat message', "Hello World!");
+      socket!.emit('user_online', userId);
       socket!.emit("requestAllUsers");
       socket!.emit("requestAllGroups");
+
+      socket!.on('user_status', (data) {
+      // Handle online/offline status updates
+      CommonFunction.debugPrint('User status: ${data['userId']} is ${data['status']}');
+      if (data['userId'] == userId) {
+        onlineStatus.value = data['status'];
+      }
+    });
 
       // Listen for the 'allUsers' event from the server
       socket!.on('allUsers', (data) {
