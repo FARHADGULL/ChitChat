@@ -74,7 +74,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           Obx(()=> Text(
-            GlobalVariable.loggoedInUserName.value,
+            homeViewModel.onlineStatus.value,
             style: GoogleFonts.getFont(
               'Poppins',
               fontWeight: FontWeight.w500,
@@ -164,68 +164,70 @@ class HomeView extends StatelessWidget {
           ),
           //build add group chat
           
-          Expanded(
-            child: Obx(()=> homeViewModel.groups.isEmpty
-                  ? const Center(child: CircularProgressIndicator())
-                  :  ListView.builder(
-              itemCount: homeViewModel.groups.length,
-              itemBuilder: (context, index) {
-                final group = homeViewModel.groups[index];
-                print("group id: ${group.id}");
-                return ListTile(
-                  leading: const CircleAvatar(
-                    maxRadius: 25,
-                    backgroundImage: AssetImage("assets/images/ellipse_3071.png"),
-                  ),
-                  title: Text(
-                    group.name,
-                    style: GoogleFonts.getFont(
-                      'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      height: 1,
-                      color: const Color(0xFF3D4A7A),
-                    ),
-                  ),
-                  subtitle: Text(
-                    group.id.toString(),
-                    style: GoogleFonts.getFont(
-                      'Poppins',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      height: 1,
-                      color: const Color(0x80797C7B),
-                    ),
-                  ),
-                  // trailing: Text(
-                  //   CommonFunction.formatDateTime(user.createdAt!),
-                  //   style: GoogleFonts.getFont(
-                  //     'Poppins',
-                  //     fontWeight: FontWeight.w400,
-                  //     fontSize: 12,
-                  //     height: 1,
-                  //     color: const Color(0x80797C7B),
-                  //   ),
-                  // ),
-                  onTap: () {
-                    messageViewModel.selectedGroupId.value = group.id;
-                    print("selected group id: ${messageViewModel.selectedGroupId.value}");
-                    messageViewModel.selectedGroupName.value = group.name;
-                    print("group id: ${group.id}");
-                    messageViewModel.fetchGroupMessages(group.id);
+          // Expanded(
+          //   child: Obx(()=> homeViewModel.groups.isEmpty
+          //         ? const Center(child: CircularProgressIndicator())
+          //         :  ListView.builder(
+          //     itemCount: homeViewModel.groups.length,
+          //     itemBuilder: (context, index) {
+          //       final group = homeViewModel.groups[index];
+          //       print("group id: ${group.id}");
+          //       return ListTile(
+          //         leading: const CircleAvatar(
+          //           maxRadius: 25,
+          //           backgroundImage: AssetImage("assets/images/ellipse_3071.png"),
+          //         ),
+          //         title: Text(
+          //           group.name,
+          //           style: GoogleFonts.getFont(
+          //             'Poppins',
+          //             fontWeight: FontWeight.w500,
+          //             fontSize: 16,
+          //             height: 1,
+          //             color: const Color(0xFF3D4A7A),
+          //           ),
+          //         ),
+          //         subtitle: Text(
+          //           group.id.toString(),
+          //           style: GoogleFonts.getFont(
+          //             'Poppins',
+          //             fontWeight: FontWeight.w400,
+          //             fontSize: 12,
+          //             height: 1,
+          //             color: const Color(0x80797C7B),
+          //           ),
+          //         ),
+          //         // trailing: Text(
+          //         //   CommonFunction.formatDateTime(user.createdAt!),
+          //         //   style: GoogleFonts.getFont(
+          //         //     'Poppins',
+          //         //     fontWeight: FontWeight.w400,
+          //         //     fontSize: 12,
+          //         //     height: 1,
+          //         //     color: const Color(0x80797C7B),
+          //         //   ),
+          //         // ),
+          //         onTap: () {
+          //           messageViewModel.selectedGroupId.value = group.id;
+          //           print("selected group id: ${messageViewModel.selectedGroupId.value}");
+          //           messageViewModel.selectedGroupName.value = group.name;
+          //           print("group id: ${group.id}");
+          //           messageViewModel.fetchGroupMessages(group.id);
                     
-                    Get.toNamed(AppRoutes.groupChatView);
-                  },
-                );
-              },
-            ),),
-          ),
+          //           Get.toNamed(AppRoutes.groupChatView);
+          //         },
+          //       );
+          //     },
+          //   ),),
+          // ),
+
+          //build p2p chat
           Expanded(
             child: Obx(
               () {
                 // Filter the users to exclude the logged-in user
                 final filteredUsers = homeViewModel.users
-                    .where((user) => user.id != GlobalVariable.userId.value)
+                    .where((user) => user.id != homeViewModel.userId)
                     .toList();
 
                 return filteredUsers.isEmpty
@@ -251,7 +253,7 @@ class HomeView extends StatelessWidget {
                               ),
                             ),
                             subtitle: Text(
-                              user.id.toString(),
+                              user.isOnline! ? 'Online' : 'Offline',
                               style: GoogleFonts.getFont(
                                 'Poppins',
                                 fontWeight: FontWeight.w400,
@@ -273,7 +275,7 @@ class HomeView extends StatelessWidget {
                             onTap: () {
                               messageViewModel.selectedUserName.value = user.username ?? "User $index";
                               messageViewModel.selectedUserId.value = user.id ?? 0;
-                              messageViewModel.fetchMessages(GlobalVariable.userId.value, user.id ?? 0);
+                              messageViewModel.fetchMessages(user.id ?? 0);
                               Get.toNamed(AppRoutes.messageView);
                             },
                           );
