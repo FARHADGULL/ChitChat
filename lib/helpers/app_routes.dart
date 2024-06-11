@@ -1,3 +1,4 @@
+import 'package:flutter_app/helpers/auth_middleware.dart';
 import 'package:flutter_app/main.dart';
 import 'package:flutter_app/screens/bottom_navigation/bottom_navigation_view.dart';
 import 'package:flutter_app/screens/authentication/login/login_view.dart';
@@ -58,6 +59,7 @@ class AppRoutes {
       GetPage(
         name: bottomNavigationView,
         page: () => BottomNavigationView(),
+        middlewares: [AuthMiddleware()],
       ),
       GetPage(
         name: createGroup,
