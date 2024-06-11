@@ -323,7 +323,7 @@ class MessageView extends StatelessWidget {
                         fontSize: 16,
                       ),
                       onSubmitted: (value) {
-                        messageViewModel.sendMessage(value, true, userId: GlobalVariable.userId.value, targetUserId:  messageViewModel.selectedUserId.value);
+                        messageViewModel.sendMessage(value, true, targetUserId:  messageViewModel.selectedUserId.value);
                       }),
                 ),
               ),
