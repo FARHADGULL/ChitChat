@@ -38,15 +38,17 @@ class LoginViewModel extends GetxController {
           .then((response) async{
             _parsedJson = response;
             if (response['status'] == 200) {
-              GlobalVariable.token.value = _parsedJson['token'];
+              //GlobalVariable.token.value = _parsedJson['token'];
+              CommonFunction.debugPrint('Token: ${GlobalVariable.token.value}');
 
               // Extract the user ID of the logged-in user
               var loggedInUser = _parsedJson['allUsers']
                   .firstWhere((user) => user['email'] == emailController.text);
 
-              GlobalVariable.userId.value = loggedInUser['id'];
-              GlobalVariable.loggoedInUserName.value = loggedInUser['username'];
-              sessionController.login(_parsedJson['token']);
+              //GlobalVariable.userId.value = loggedInUser['id'];
+              CommonFunction.debugPrint('Logged in user ID: ${GlobalVariable.userId.value}');
+              //GlobalVariable.loggoedInUserName.value = loggedInUser['username'];
+              sessionController.login(_parsedJson['token'], loggedInUser['id']);
               //Get.offAllNamed(AppRoutes.bottomNavigationView);
             } else {
               CommonFunction.showSnackBar(
