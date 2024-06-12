@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/common_function.dart';
-import 'package:flutter_app/helpers/global_variables.dart';
+import 'package:flutter_app/screens/home.dart';
+import 'package:flutter_app/screens/home/home_viewmodel.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,6 +15,7 @@ class MessageView extends StatelessWidget {
   MessageView({super.key});
 
   final MessageViewModel messageViewModel = Get.put(MessageViewModel());
+  final HomeViewModel homeViewModel = Get.find<HomeViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,46 +31,69 @@ class MessageView extends StatelessWidget {
   }
 
   PreferredSizeWidget? appBar() {
-    return CustomAppBar(
-      containsLeading: true,
-      title: Text(
-        messageViewModel.selectedUserName.value.toString(),
-        style: GoogleFonts.getFont(
-          'Poppins',
-          fontWeight: FontWeight.w500,
-          fontSize: 16,
-          height: 1,
-          color: Color.fromARGB(255, 1, 2, 2),
+  return CustomAppBar(
+    containsLeading: true,
+    appBarColor: AppColors.white,
+    leading: Stack(
+      children: [
+        const CircleAvatar(
+          maxRadius: 25,
+          backgroundImage: AssetImage('assets/images/ellipse_3071.png'),
         ),
-      ).data,
-      actions: [
-        IconButton(
-          icon: SizedBox(
-            width: 18,
-            height: 18,
-            child: SvgPicture.asset(
-              'assets/vectors/rectangle_774_x2.svg',
-            ),
-          ),
-          onPressed: () {
-            // Handle audio call
-          },
-        ),
-        IconButton(
-          icon: SizedBox(
-            width: 24,
-            height: 24,
-            child: SvgPicture.asset(
-              'assets/vectors/videoicon.svg',
-            ),
-          ),
-          onPressed: () {
-            // Handle video call
-          },
-        ),
+        Positioned(
+                right: 5,
+                bottom: 10,
+                child: Obx(() => Container(
+                  height: 12,
+                  width: 12,
+                  decoration: BoxDecoration(
+                    color: homeViewModel.onlineStatus.value == 'online' ? Colors.green : Colors.white,
+                    shape: BoxShape.circle,
+                    
+                  ),
+                )),
+              ),
       ],
-    );
-  }
+    ),
+    title: Text(
+      messageViewModel.selectedUserName.value.toString(),
+      style: GoogleFonts.getFont(
+        'Poppins',
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
+        height: 1,
+        color: const Color.fromARGB(255, 1, 2, 2),
+      ),
+    ).data,
+    actions: [
+      IconButton(
+        icon: SizedBox(
+          width: 18,
+          height: 18,
+          child: SvgPicture.asset(
+            'assets/vectors/rectangle_774_x2.svg',
+          ),
+        ),
+        onPressed: () {
+          // Handle audio call
+        },
+      ),
+      IconButton(
+        icon: SizedBox(
+          width: 24,
+          height: 24,
+          child: SvgPicture.asset(
+            'assets/vectors/videoicon.svg',
+          ),
+        ),
+        onPressed: () {
+          // Handle video call
+        },
+      ),
+    ],
+  );
+}
+
 
   Widget messageBodySection() {
     return Expanded(
@@ -85,7 +110,7 @@ class MessageView extends StatelessWidget {
                 children: [
                   //show name of the sender 
                   if (message.isSentByMe)
-                  Container() else
+                  const SizedBox(height: 30,) else
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -97,7 +122,7 @@ class MessageView extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                   height: 1,
-                                  color: Color.fromARGB(255, 1, 2, 2),
+                                  color: const Color.fromARGB(255, 1, 2, 2),
                                 ),
                         ),
                       ),
@@ -110,51 +135,55 @@ class MessageView extends StatelessWidget {
                       margin:
                           const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                       padding:
-                          const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       decoration: BoxDecoration(
                         color: message.isSentByMe
                             ? AppColors.navyBlue
                             : Colors.grey[300],
                         borderRadius: message.isSentByMe
                             ? const BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                bottomRight: Radius.circular(15),
-                                bottomLeft: Radius.circular(15),
+                                topLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
+                                bottomLeft: Radius.circular(12),
                               )
                             : const BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
+                                bottomLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
                               ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        // crossAxisAlignment: message.isSentByMe
-                        //     ? CrossAxisAlignment.end
-                        //     : CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            message.content.toString(),
-                            style: TextStyle(
-                              color: message.isSentByMe
-                                  ? AppColors.white
-                                  : AppColors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            CommonFunction.formatDateTime(DateTime.now().toString()),
-                            style: TextStyle(
-                              color: message.isSentByMe
-                                  ? AppColors.white
-                                  : AppColors.black,
-                              fontSize: 10,
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        message.content.toString(),
+                        style: TextStyle(
+                          color: message.isSentByMe
+                              ? AppColors.white
+                              : AppColors.black,
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 5),
+                          Align(
+                            alignment: message.isSentByMe
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            child: Container(
+                              margin:
+                          const EdgeInsets.symmetric(horizontal: 20),
+                      padding:
+                          const EdgeInsets.symmetric( horizontal: 15),
+                              
+                              child: Text(
+                                CommonFunction.formatDateTime(DateTime.now().toString()),
+                                style: TextStyle(
+                                  color: message.isSentByMe
+                                      ? AppColors.white
+                                      : AppColors.black,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ),
+                          ),
                 ],
               );
             },
