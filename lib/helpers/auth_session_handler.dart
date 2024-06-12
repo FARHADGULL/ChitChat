@@ -18,7 +18,7 @@ class SessionController extends GetxController {
 
   void login(String token, int userId) {
     _storage.write('token', token);
-    _storage.write('userId', userId);
+    _storage.write('userId', userId);//
     isLoggedIn.value = true;
     GlobalVariable.token.value = token;
     GlobalVariable.userId.value = userId;
