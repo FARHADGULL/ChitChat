@@ -22,7 +22,8 @@ class HomeViewModel extends GetxController {
   void onInit() {
     connect();
     super.onInit();
-  } 
+  }
+
 
   void connect() {
     socket = IO.io('http://192.168.18.47:4000', <String, dynamic>{
@@ -46,6 +47,11 @@ class HomeViewModel extends GetxController {
       CommonFunction.debugPrint('User status: ${data['userId']} is ${data['status']}');
       if (data['userId'] == userId) {
         onlineStatus.value = data['status'];
+        for (var user in users) {
+          if (user.id == userId) {
+            user.isOnline = data['status'];
+          }
+        }
       }
     });
 
