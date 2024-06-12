@@ -21,7 +21,7 @@ class CommonFunction {
   DateTime dateTime = DateTime.parse(dateTimeString);
 
   // Create a DateFormat object with your desired format
-  DateFormat formatter = DateFormat('HH:mm:ss');
+  DateFormat formatter = DateFormat('HH:mm');
 
   // Format the DateTime object using the formatter
   String formattedDateTime = formatter.format(dateTime);
