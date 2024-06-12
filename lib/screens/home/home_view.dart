@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/common_function.dart';
 import 'package:flutter_app/helpers/constants.dart';
-import 'package:flutter_app/helpers/global_variables.dart';
 import 'package:flutter_app/screens/contacts/contacts_viewmodel.dart';
 import 'package:flutter_app/screens/home/home_viewmodel.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,54 +49,75 @@ class HomeView extends StatelessWidget {
   }
 
   Widget buildHomeRow() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              color: AppColors.grey,
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Center(
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: SvgPicture.asset(
-                  'assets/vectors/vector_4_x2.svg',
-                  height: 20,
-                  width: 20,
-                ),
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            color: AppColors.grey,
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Center(
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: SvgPicture.asset(
+                'assets/vectors/vector_4_x2.svg',
+                height: 20,
+                width: 20,
               ),
             ),
           ),
-          Obx(()=> Text(
-            homeViewModel.onlineStatus.value,
-            style: GoogleFonts.getFont(
-              'Poppins',
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-              height: 1,
-              color: const Color(0xFFFFFFFF),
-            ),
-          ),),
-         GestureDetector(
-            onTap: () {
-              Get.toNamed(AppRoutes.profileView);
-            },
-           child: const CircleAvatar(
-              backgroundImage: AssetImage(
-                "assets/images/ellipse_3071.png",
+        ),
+        Obx(() => Text(
+          homeViewModel.onlineStatus.value,
+          style: GoogleFonts.getFont(
+            'Poppins',
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            height: 1,
+            color: const Color(0xFFFFFFFF),
+          ),
+        )),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(AppRoutes.profileView);
+          },
+          child: Stack(
+            children: [
+              const CircleAvatar(
+                backgroundImage: AssetImage(
+                  "assets/images/ellipse_3071.png",
+                ),
+                maxRadius: 25,
               ),
-              maxRadius: 25,
-            ),
-         ),
-        ],
-      ),
-    );
-  }
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Obx(() => Container(
+                  height: 12,
+                  width: 12,
+                  decoration: BoxDecoration(
+                    color: homeViewModel.onlineStatus.value == 'online' ? Colors.green : Colors.white,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black, // border color
+                      width: 1.5, // border width
+                    ),
+                  ),
+                )),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget buildStatus() {
     return Padding(
