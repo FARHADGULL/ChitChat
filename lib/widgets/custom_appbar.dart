@@ -67,8 +67,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       //     /// For Android
       //     statusBarBrightness: Brightness.light
 
-      //     /// For iOS
-      //     ),
+      
     );
   }
 
