@@ -356,7 +356,6 @@ class MessageView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // messageViewModel.sendMessage                  
                 },
                 child: SizedBox(
                   width: 18,
