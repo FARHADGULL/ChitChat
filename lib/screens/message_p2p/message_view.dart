@@ -355,8 +355,7 @@ class MessageView extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                },
+                onTap: () {},
                 child: SizedBox(
                   width: 18,
                   height: 20,
