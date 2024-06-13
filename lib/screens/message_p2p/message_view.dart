@@ -358,8 +358,7 @@ class MessageView extends StatelessWidget {
                 onTap: () {
                   // messageViewModel.sendMessage(
                   //   messageViewModel.messageController.text,
-                  //   true,
-                  // );
+                  
                 },
                 child: SizedBox(
                   width: 18,
