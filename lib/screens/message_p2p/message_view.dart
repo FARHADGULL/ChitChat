@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/common_function.dart';
-import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/screens/home/home_viewmodel.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
