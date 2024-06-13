@@ -60,9 +60,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : null,
       actions: actions,
       bottom: bottom,
-      // systemOverlayStyle: const SystemUiOverlayStyle(
-
-      
     );
   }
 
