@@ -64,8 +64,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       //     statusBarColor: Colors.white,
       //     statusBarIconBrightness: Brightness.dark,
 
-      //     /// For Android
-      //     statusBarBrightness: Brightness.light
+      
 
       
     );
