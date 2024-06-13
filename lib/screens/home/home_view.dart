@@ -183,7 +183,6 @@ class HomeView extends StatelessWidget {
             ),
           ),
           //build add group chat
-          
           // Expanded(
           //   child: Obx(()=> homeViewModel.groups.isEmpty
           //         ? const Center(child: CircularProgressIndicator())
