@@ -107,7 +107,6 @@ class MessageView extends StatelessWidget {
               final message = messageViewModel.messages[index];
               return Column(
                 children: [
-                  //show name of the sender 
                   if (message.isSentByMe)
                   const SizedBox(height: 30,) else
                     Align(
