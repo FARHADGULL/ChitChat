@@ -61,7 +61,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       bottom: bottom,
       // systemOverlayStyle: const SystemUiOverlayStyle(
-      //     statusBarColor: Colors.white,
 
       
     );
