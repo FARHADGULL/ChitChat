@@ -1916,24 +1916,3 @@
 //                                               ),
 //                                             ),
 //                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                     Container(
-//                                       margin:
-//                                           const EdgeInsets.fromLTRB(0, 6, 0, 6),
-//                                       child: Column(
-//                                         mainAxisAlignment:
-//                                             MainAxisAlignment.start,
-//                                         crossAxisAlignment:
-//                                             CrossAxisAlignment.start,
-//                                         children: [
-//                                           Container(
-//                                             margin: const EdgeInsets.fromLTRB(
-//                                                 0, 0, 0, 6),
-//                                             child: Align(
-//                                               alignment: Alignment.topLeft,
-//                                               child: Text(
-//                                                 'Location',
-//                                                 style: GoogleFonts.getFont(
-//                                                   'Poppins',
