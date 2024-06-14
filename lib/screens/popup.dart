@@ -1897,22 +1897,3 @@
 //                                       child: Container(
 //                                         decoration: BoxDecoration(
 //                                           color: const Color(0xFFF2F8F7),
-//                                           borderRadius:
-//                                               BorderRadius.circular(22),
-//                                         ),
-//                                         child: Container(
-//                                           width: 44,
-//                                           height: 44,
-//                                           padding: const EdgeInsets.fromLTRB(
-//                                               10, 10, 10, 10),
-//                                           child: SizedBox(
-//                                             width: 24,
-//                                             height: 24,
-//                                             child: SizedBox(
-//                                               width: 24,
-//                                               height: 24,
-//                                               child: SvgPicture.asset(
-//                                                 'assets/vectors/group_6_x2.svg',
-//                                               ),
-//                                             ),
-//                                           ),
