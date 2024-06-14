@@ -1937,22 +1937,3 @@
 //                                                 'Location',
 //                                                 style: GoogleFonts.getFont(
 //                                                   'Poppins',
-//                                                   fontWeight: FontWeight.w700,
-//                                                   fontSize: 14,
-//                                                   height: 1,
-//                                                   color:
-//                                                       const Color(0xFF000E08),
-//                                                 ),
-//                                               ),
-//                                             ),
-//                                           ),
-//                                           Container(
-//                                             margin: const EdgeInsets.fromLTRB(
-//                                                 2, 0, 0, 0),
-//                                             child: Text(
-//                                               'Share your location',
-//                                               style: GoogleFonts.getFont(
-//                                                 'Poppins',
-//                                                 fontWeight: FontWeight.w400,
-//                                                 fontSize: 12,
-//                                                 height: 1,
